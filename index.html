@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1A214C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MP&amp;L 2026">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>2026 MP&amp;L Conference Highlights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C2533; --paper: #F3F5F8; --surface: #FFFFFF; --line: #D5DCE4;
+    --accent: #1A214C; --on-accent: #FFFFFF; --muted: #5C6878; --tint: #E4E7F2;
+    --brand: #1A214C; --on-brand: #FFFFFF;
+    --radius: 6px; --tabbar: 64px; color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #E8ECF2; --paper: #11151B; --surface: #1A2029; --line: #2C3542;
+      --accent: #AEB8EE; --on-accent: #10153A; --muted: #9AA6B6; --tint: #1E2640; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #E8ECF2; --paper: #11151B; --surface: #1A2029; --line: #2C3542;
+    --accent: #AEB8EE; --on-accent: #10153A; --muted: #9AA6B6; --tint: #1E2640; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.55;
+    padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px);
+  }
+  h1, h2, h3 { font-family: "Bricolage Grotesque", "Manrope", system-ui, sans-serif; letter-spacing: -0.02em; text-wrap: balance; }
+  h1 { font-weight: 800; } h2, h3 { font-weight: 600; }
+  a { color: var(--accent); }
+  [hidden] { display: none !important; }
+  button { font: inherit; cursor: pointer; }
+  img { max-width: 100%; -webkit-user-drag: none; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .btn { padding: .8rem 1.2rem; border: 0; border-radius: var(--radius); background: var(--accent); color: var(--on-accent); font-weight: 700; white-space: nowrap; text-decoration: none; display: inline-block; }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+  .banner { background: var(--tint); color: var(--ink); font-size: .9rem; padding-block: 8px; }
+  .appbar { position: sticky; top: 0; z-index: 10; background: var(--brand); color: var(--on-brand); padding-top: env(safe-area-inset-top, 0px); }
+  .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .brand-logo { height: 42px; width: auto; flex: none; display: block; }
+  .brand-div { width: 1px; height: 26px; background: rgba(255,255,255,.3); flex: none; }
+  .appbar .ghost { color: var(--on-brand); border-color: rgba(255,255,255,.4); }
+  @media (max-width: 480px) { .brand-div, .appbar-title { display: none; } }
+  .pano { display: block; width: 100%; padding: 0; border: 0; background: var(--line); border-radius: 10px; overflow: hidden; }
+  .pano img { display: block; width: 100%; height: auto; }
+  .pano-cap { color: var(--muted); font-size: .9rem; margin: 8px 0 0; }
+  .appbar-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 62px; }
+  .appbar-title { font-family: "Bricolage Grotesque", sans-serif; font-weight: 600; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .appbar-actions { display: flex; gap: 8px; }
+  .ghost { background: none; border: 1px solid var(--line); color: var(--ink); padding: .4rem .9rem; border-radius: 999px; font-weight: 600; font-size: .9rem; white-space: nowrap; text-decoration: none; }
+  #view { padding-bottom: calc(var(--tabbar) + 40px + env(safe-area-inset-bottom, 0px)); }
+
+  .tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); display: flex; justify-content: center; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .tabbar a { flex: 1; max-width: 160px; height: var(--tabbar); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: var(--muted); text-decoration: none; font-size: .78rem; font-weight: 600; }
+  .tabbar a svg { width: 24px; height: 24px; }
+  .tabbar a[aria-current=page] { color: var(--accent); }
+  @media (min-width: 900px) {
+    .tabbar { left: 50%; right: auto; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); border: 1px solid var(--line); border-radius: 999px; padding: 0 12px; box-shadow: 0 8px 30px rgba(20, 30, 50, .14); }
+    .tabbar a { width: 120px; flex: none; }
+  }
+
+  /* Highlights */
+  .cover { padding-top: 24px; }
+  .mosaic { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; height: clamp(260px, 44vw, 460px); border-radius: 10px; overflow: hidden; }
+  .mosaic button { padding: 0; border: 0; background: var(--line); overflow: hidden; }
+  .mosaic button:first-child { grid-row: span 2; }
+  .mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mosaic.n1 { grid-template-columns: 1fr; }
+  .mosaic.n2, .mosaic.n3 { grid-template-columns: 2fr 1fr; }
+  .mosaic.n2 button:nth-child(2) { grid-row: span 2; }
+  .mosaic.n4 button:nth-child(4) { grid-column: span 2; }
+  @media (max-width: 640px) { .mosaic { grid-template-columns: 2fr 1fr; height: 300px; } .mosaic.n1 { grid-template-columns: 1fr; } .mosaic button:nth-child(n+4) { display: none; } }
+  .cover h1 { font-size: clamp(2.6rem, 9vw, 5.5rem); line-height: .92; margin: 28px 0 10px; }
+  .meta { color: var(--muted); font-weight: 600; margin: 0; }
+  .lede { font-size: 1.15rem; max-width: 60ch; margin: 16px 0 0; }
+  section.block { margin-top: 48px; }
+  section.block > h2, .block-head h2 { font-size: 1.6rem; margin: 0 0 16px; }
+  .block-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .block-head a { font-weight: 600; text-decoration: none; }
+  .stats { display: flex; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .stat { flex: 1 1 140px; background: var(--surface); padding: 18px 18px 16px; box-shadow: 1px 0 0 var(--line), 0 1px 0 var(--line); }
+  .stat b { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 2.2rem; font-weight: 800; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--muted); font-size: .95rem; }
+  .strip { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+  .strip button { flex: none; padding: 0; border: 0; background: var(--line); border-radius: 6px; overflow: hidden; scroll-snap-align: start; }
+  .strip img { height: 200px; width: auto; display: block; max-width: none; }
+  .quotes { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
+  .quote { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px; }
+  .quote p { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.3rem; line-height: 1.3; margin: 0 0 14px; }
+  .quote footer { color: var(--muted); font-size: .92rem; }
+  .quote a { font-weight: 600; text-decoration: none; }
+  .thanks { font-size: 1.1rem; max-width: 60ch; }
+
+  /* Sessions */
+  .page-head { padding-top: 28px; }
+  .page-head h1 { font-size: clamp(2.2rem, 7vw, 3.6rem); line-height: 1; margin: 0 0 6px; }
+  .day { font-size: 1.1rem; margin: 32px 0 10px; color: var(--muted); }
+  .sessions { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); }
+  .s-card { display: flex; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; color: var(--ink); text-decoration: none; }
+  .s-card:hover { border-color: var(--accent); }
+  .s-thumb { flex: none; width: 88px; height: 88px; border-radius: 6px; background: var(--line); overflow: hidden; }
+  .s-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .s-card h3 { font-size: 1.08rem; line-height: 1.25; margin: 2px 0 4px; }
+  .s-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+  .ph-sec { font-size: 1.15rem; margin: 28px 0 10px; }
+  .ph-sec span { color: var(--muted); font-weight: 500; font-size: .95rem; }
+  .back { display: inline-block; margin-top: 20px; font-weight: 600; text-decoration: none; }
+  .detail h1 { font-size: clamp(2rem, 6.5vw, 3.4rem); line-height: 1.02; margin: 12px 0 10px; max-width: 22ch; }
+  .speakers { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 22px 0 0; padding: 0; list-style: none; }
+  .speakers b { display: block; }
+  .speakers span { color: var(--muted); font-size: .92rem; }
+  .summary { font-size: 1.1rem; max-width: 62ch; margin: 22px 0 0; }
+  .takeaways { margin: 0; padding-left: 1.3rem; max-width: 62ch; }
+  .takeaways li { margin: 0 0 10px; padding-left: 4px; }
+  .next-link { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 48px; padding: 18px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); text-decoration: none; }
+  .next-link span { color: var(--muted); font-size: .9rem; display: block; }
+  .next-link b { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.15rem; }
+
+  /* Photos */
+  .chips { display: flex; gap: 8px; overflow-x: auto; padding: 14px 0; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { white-space: nowrap; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: .45rem .95rem; border-radius: 999px; font-weight: 600; font-size: .93rem; }
+  .chip .count { color: var(--muted); margin-left: .4rem; font-weight: 500; }
+  .chip[aria-pressed=true] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .chip[aria-pressed=true] .count { color: inherit; opacity: .7; }
+  .grid { columns: 4 230px; column-gap: 8px; }
+  .tile { display: block; width: 100%; padding: 0; border: 0; margin: 0 0 8px; background: var(--line); border-radius: 4px; overflow: hidden; break-inside: avoid; }
+  .tile img { display: block; width: 100%; height: auto; }
+  @media (max-width: 560px) {
+    .wrap { padding-left: 16px; padding-right: 16px; }
+    .grid { columns: 2; column-gap: 6px; } .tile { margin-bottom: 6px; }
+  }
+  .status { text-align: center; color: var(--muted); padding: 80px 20px; }
+  .empty { color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 10px; padding: 24px; }
+
+  /* Viewer */
+  .lb { position: fixed; inset: 0; z-index: 50; background: #0A0C10; color: #fff; display: grid; grid-template-rows: auto 1fr auto; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+  .lb-bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 16px; }
+  .lb-actions { display: flex; gap: 8px; }
+  .lb-btn { background: rgba(255,255,255,.12); color: #fff; border: 0; border-radius: 999px; padding: .55rem 1rem; font-weight: 600; white-space: nowrap; }
+  .lb-btn:hover { background: rgba(255,255,255,.2); }
+  .lb-count { color: rgba(255,255,255,.7); font-size: .95rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .lb-stage { position: relative; display: grid; place-items: center; min-height: 0; padding: 0 8px; touch-action: pan-y; }
+  .lb-stage img { max-width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; user-select: none; }
+  .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; border: 0; background: rgba(255,255,255,.12); color: #fff; font-size: 1.6rem; line-height: 1; }
+  .prev { left: 14px; } .next { right: 14px; }
+  .lb-caption { padding: 10px 16px 18px; text-align: center; color: rgba(255,255,255,.72); font-size: .93rem; }
+  @media (max-width: 560px) { .lb-nav { display: none; } .lb-btn { padding: .5rem .75rem; font-size: .9rem; } .lb-actions { gap: 6px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  /* Password screen */
+  body.locked .appbar, body.locked #view, body.locked .tabbar, body.locked .banner { display: none; }
+  .gate { min-height: 100vh; min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 440px); justify-content: center; align-content: center; padding: 24px; }
+  .gate-logo { display: block; background: var(--brand); border-radius: 10px; padding: 14px 18px; width: max-content; max-width: 100%; margin-bottom: 28px; }
+  .gate-logo img { display: block; height: 48px; width: auto; }
+  .gate h1 { font-size: clamp(2.2rem, 8vw, 3.2rem); line-height: 1.02; margin: 0 0 .75rem; }
+  .gate p { color: var(--muted); margin: 0 0 2rem; }
+  .gate label { display: block; font-weight: 600; margin-bottom: .4rem; }
+  .field { display: flex; gap: 8px; }
+  .field input { flex: 1; min-width: 0; font: inherit; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); }
+  .remember { display: flex !important; align-items: center; gap: 8px; font-weight: 500 !important; margin-top: 14px; color: var(--muted); }
+  .remember input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0; }
+  .gate .error { color: #B8322A; margin-top: .75rem; min-height: 1.5em; font-size: .95rem; }
+  .btn[disabled] { opacity: .6; cursor: wait; }
+  /* Photos still unlocking */
+  img[data-enc] { aspect-ratio: 4 / 3; background: var(--line); }
+  .pano img[data-enc] { aspect-ratio: 16 / 6; }
+  .lb-stage img:not([src]) { visibility: hidden; }
+</style>
+</head>
+<body class="locked">
+
+<main class="gate" id="gate" hidden>
+  <div>
+    <div class="gate-logo"><img src="logo.png" alt="Flex-N-Gate"></div>
+    <h1>2026 MP&amp;L Conference Highlights</h1>
+    <p>Enter the password from your invitation to see the conference highlights.</p>
+    <form id="gate-form" novalidate>
+      <label for="pw">Password</label>
+      <div class="field">
+        <input id="pw" type="password" autocomplete="current-password" required>
+        <button class="btn" id="gate-btn" type="submit">View highlights</button>
+      </div>
+      <label class="remember" for="remember"><input type="checkbox" id="remember" checked> Keep me signed in on this device</label>
+      <div class="error" id="gate-error" role="alert"></div>
+    </form>
+  </div>
+</main>
+
+<div class="banner" id="demo-banner" hidden><div class="wrap">Preview with sample photos and text. Your live site shows your own content after sign-in.</div></div>
+<header class="appbar">
+  <div class="wrap appbar-in">
+    <div class="brand"><img class="brand-logo" src="logo.png" alt="Flex-N-Gate"><span class="brand-div" aria-hidden="true"></span>
+    <span class="appbar-title" id="appbar-title">2026 MP&amp;L Conference Highlights</span></div>
+    <div class="appbar-actions">
+      <button class="ghost" id="install" type="button" hidden>Install app</button>
+      <button class="ghost" id="signout" type="button">Sign out</button>
+    </div>
+  </div>
+</header>
+<main id="view"><div class="status">Loading the highlights…</div></main>
+<nav class="tabbar" aria-label="Sections">
+  <a href="#/highlights" data-tab="highlights">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg>
+    Highlights
+  </a>
+  <a href="#/events" data-tab="events">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+    Events
+  </a>
+  <a href="#/photos" data-tab="photos">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+    Photos
+  </a>
+</nav>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <div class="lb-bar">
+    <span class="lb-count" id="lb-count"></span>
+    <div class="lb-actions">
+      <button class="lb-btn" id="lb-play" type="button">Slideshow</button>
+      <button class="lb-btn" id="lb-dl" type="button">Download</button>
+      <button class="lb-btn" id="lb-close" type="button">Close</button>
+    </div>
+  </div>
+  <div class="lb-stage" id="lb-stage">
+    <button class="lb-nav prev" id="lb-prev" type="button" aria-label="Previous photo">‹</button>
+    <img id="lb-img" alt="">
+    <button class="lb-nav next" id="lb-next" type="button" aria-label="Next photo">›</button>
+  </div>
+  <div class="lb-caption" id="lb-caption"></div>
+</div>
+
+<script>
+/* ============================================================
+   SETTINGS: the only part of this file you need to edit.
+   Event text, stats and sessions live in yearbook.json.
+   ============================================================ */
+const CONFIG = {
+  allowDownload: true,     // false hides the Download button
+  slideshowSeconds: 4
+};
+/* ============================================================ */
+
+const DEMO = window.YEARBOOK_DEMO === true || location.protocol === "file:";
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const safeUrl = (u) => /^https?:\/\//i.test(u || "") ? u : "#";
+const S = { photos: [], yb: null, filter: "All", view: [], index: 0, timer: null, lastFocus: null, ready: false, seq: 0 };
+
+if (DEMO) { document.body.classList.remove("locked"); $("demo-banner").hidden = false; $("signout").hidden = true; if (window.YEARBOOK_DEMO_BANNER) $("demo-banner").firstElementChild.textContent = window.YEARBOOK_DEMO_BANNER; }
+
+function prettify(folder) {
+  let s = folder.replace(/^\d+\s*[-_]?\s*/, "").trim();
+  if (!/\s/.test(s)) s = s.replace(/[-_]+/g, " ");
+  return s ? s.charAt(0).toUpperCase() + s.slice(1) : folder;
+}
+function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+
+/* ---------- Load content ---------- */
+/* ---------- Unlocking (photos and text are encrypted with the password) ---------- */
+const B64 = {
+  dec: (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0)),
+  enc: (u8) => { let s = ""; u8.forEach((b) => { s += String.fromCharCode(b); }); return btoa(s); }
+};
+const SAVE_KEY = "highlights-key";
+let META = null, KEY = null;
+const blobs = new Map();
+function saved(op, store, value) {
+  try {
+    const st = store === "local" ? localStorage : sessionStorage;
+    if (op === "get") return st.getItem(SAVE_KEY);
+    if (op === "set") st.setItem(SAVE_KEY, value); else st.removeItem(SAVE_KEY);
+  } catch { return null; }
+}
+async function getMeta() {
+  if (!META) { const r = await fetch("data/meta.json", { cache: "no-cache" }); if (!r.ok) throw new Error("meta " + r.status); META = await r.json(); }
+  return META;
+}
+async function keyFromPassword(pw) {
+  const m = await getMeta();
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveBits"]);
+  const bits = new Uint8Array(await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: B64.dec(m.salt), iterations: m.iter }, base, 512));
+  return bits.slice(0, 32);
+}
+async function openFile(path) {
+  const r = await fetch(path, { cache: "no-cache" });
+  if (!r.ok) throw new Error(path + " " + r.status);
+  const u = new Uint8Array(await r.arrayBuffer());
+  return crypto.subtle.decrypt({ name: "AES-GCM", iv: u.slice(0, 12) }, KEY, u.slice(12));
+}
+async function unlockWith(raw) {
+  KEY = await crypto.subtle.importKey("raw", raw, "AES-GCM", false, ["decrypt"]);
+  const content = JSON.parse(new TextDecoder().decode(await openFile("data/content.bin")));
+  const photos = (content.photos || []).map((p) => ({
+    folder: p.folder, name: p.name, album: p.folder ? prettify(p.folder) : "General",
+    file: "p/" + p.f + ".bin", type: p.t
+  }));
+  return { photos, yearbook: content.yearbook };
+}
+function photoUrl(p) {
+  if (p.url) return Promise.resolve(p.url);
+  if (!blobs.has(p.file)) blobs.set(p.file, openFile(p.file).then((b) => URL.createObjectURL(new Blob([b], { type: p.type || "image/jpeg" }))));
+  return blobs.get(p.file);
+}
+const BLANK = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+const imgSrc = (p) => p.url ? `src="${esc(p.url)}"` : `src="${BLANK}" data-enc="${esc(p.file)}" data-type="${esc(p.type || "")}"`;
+function fillImg(img) {
+  const file = img.dataset.enc; if (!file) return;
+  photoUrl({ file, type: img.dataset.type }).then((u) => { img.src = u; img.removeAttribute("data-enc"); }).catch(() => {});
+}
+const io = "IntersectionObserver" in window ? new IntersectionObserver((entries) => entries.forEach((e) => {
+  if (e.isIntersecting) { io.unobserve(e.target); fillImg(e.target); }
+}), { rootMargin: "600px 0px" }) : null;
+function hydrate(root) { root.querySelectorAll("img[data-enc]").forEach((img) => io ? io.observe(img) : fillImg(img)); }
+
+function showGate(message) {
+  document.body.classList.add("locked");
+  $("gate").hidden = false;
+  $("gate-error").textContent = message || "";
+  $("pw").value = "";
+  setTimeout(() => $("pw").focus(), 50);
+}
+$("gate-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const pw = $("pw").value;
+  if (!pw) { $("gate-error").textContent = "Enter the password to continue."; return; }
+  $("gate-btn").disabled = true; $("gate-error").textContent = "Checking…";
+  try {
+    const raw = await keyFromPassword(pw);
+    let data;
+    try { data = await unlockWith(raw); }
+    catch { $("gate-error").textContent = "That password didn't work. Check the message with the link and try again."; $("pw").select(); return; }
+    const value = JSON.stringify({ s: META.salt, k: B64.enc(raw) });
+    if ($("remember").checked) saved("set", "local", value); else saved("set", "session", value);
+    start(data);
+  } catch (err) {
+    console.error(err);
+    $("gate-error").textContent = "The highlights couldn't load. Check your connection and try again.";
+  } finally { $("gate-btn").disabled = false; }
+});
+$("signout").addEventListener("click", () => {
+  saved("del", "local"); saved("del", "session");
+  blobs.forEach((pr) => pr.then((u) => URL.revokeObjectURL(u)).catch(() => {}));
+  location.hash = ""; location.reload();
+});
+
+async function load() {
+  if (DEMO) return window.YEARBOOK_DEMO_DATA || demoContent();
+  const m = await getMeta();
+  const stored = saved("get", "local") || saved("get", "session");
+  if (stored) {
+    try {
+      const s = JSON.parse(stored);
+      if (s.s === m.salt) return await unlockWith(B64.dec(s.k));
+    } catch {}
+    saved("del", "local"); saved("del", "session");
+  }
+  return null;
+}
+
+(async () => {
+  try {
+    const data = await load();
+    if (!data) { showGate(); return; }
+    start(data);
+  } catch (err) {
+    console.error(err);
+    showGate("The highlights couldn't load. Check your connection and refresh the page.");
+  }
+})();
+
+function start(data) {
+  {
+    $("gate").hidden = true;
+    document.body.classList.remove("locked");
+    S.photos = data.photos;
+    S.yb = normalize(data.yearbook);
+    document.title = S.yb.event.name;
+    $("appbar-title").textContent = S.yb.event.name;
+    S.ready = true;
+    route();
+  }
+}
+
+function normalize(yb) {
+  yb = yb || {};
+  const event = { name: "2026 MP&L Conference Highlights", ...(yb.event || {}) };
+  const sessions = (yb.sessions || []).map((s, i) => ({ ...s, id: s.id || slug(s.title || "session-" + (i + 1)), speakers: s.speakers || [], takeaways: s.takeaways || [] }));
+  return { event, sessions, stats: yb.stats || [], featured: yb.featured || [] };
+}
+const sectionsOf = (s) => [].concat(s.album || []).map((a) => (a && typeof a === "object") ? { folder: a.folder || "", title: a.title || prettify(a.folder || "") } : { folder: a, title: prettify(String(a)) });
+const albumsOf = (s) => sectionsOf(s).map((x) => x.folder);
+const normAlbum = (s) => String(s || "").normalize("NFKC").toLowerCase().replace(/[‐-―−]/g, "-").replace(/\s*[-_]\s*/g, "-").replace(/\s+/g, " ").trim();
+const bareAlbum = (s) => normAlbum(s).replace(/^\d+\s*-?\s*/, "");
+const sameAlbum = (a, b) => normAlbum(a) === normAlbum(b) || (bareAlbum(a) !== "" && bareAlbum(a) === bareAlbum(b));
+const photosFor = (s) => albumsOf(s).flatMap((a) => S.photos.filter((p) => sameAlbum(a, p.folder)));
+const byPath = (path) => {
+  const i = String(path).lastIndexOf("/"), folder = i < 0 ? "" : path.slice(0, i), name = path.slice(i + 1).toLowerCase();
+  return S.photos.find((p) => p.name.toLowerCase() === name && (folder ? sameAlbum(folder, p.folder) : !p.folder));
+};
+
+/* ---------- Router ---------- */
+window.addEventListener("hashchange", route);
+function route() {
+  if (!S.ready) return;
+  let [tab = "highlights", id] = location.hash.replace(/^#\/?/, "").split("/");
+  if (tab === "sessions") tab = "events";
+  document.querySelectorAll(".tabbar a").forEach((a) => a.dataset.tab === (tab || "highlights") ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  const v = $("view");
+  if (tab === "events" && id) v.innerHTML = sessionDetail(decodeURIComponent(id));
+  else if (tab === "events") v.innerHTML = sessionsList();
+  else if (tab === "photos") v.innerHTML = photosPage();
+  else v.innerHTML = highlights();
+  hydrate(v);
+  window.scrollTo(0, 0);
+}
+
+const lists = {};
+function photoBtn(key, list, i, cls = "") {
+  lists[key] = list;
+  const p = list[i];
+  return `<button class="${cls}" type="button" data-list="${esc(key)}" data-i="${i}" aria-label="Open photo from ${esc(p.album)}"><img ${imgSrc(p)} alt="" decoding="async" draggable="false"></button>`;
+}
+
+/* ---------- Highlights ---------- */
+function highlights() {
+  const { event, sessions, stats, featured } = S.yb;
+  let feat = featured.map(byPath).filter(Boolean);
+  if (feat.length < 5) {
+    const firsts = [...new Set(S.photos.map((p) => p.folder))].map((f) => S.photos.find((p) => p.folder === f));
+    feat = [...new Set([...feat, ...firsts, ...S.photos])].slice(0, Math.max(5, feat.length));
+  }
+  const cover = feat.slice(0, 5);
+  const pano = event.cover ? byPath(event.cover) : null;
+  if (pano) feat = feat.filter((p) => p !== pano);
+  const allStats = [...stats, { value: S.photos.length, label: "Photos" }, ...(sessions.length ? [{ value: sessions.length, label: "Events" }] : [])];
+  const quotes = sessions.filter((s) => s.quote && s.quote.text);
+  const metaLine = [event.dates, event.location].filter(Boolean).map(esc).join(", ");
+  return `
+  <div class="wrap cover">
+    ${pano ? `${photoBtn("pano", [pano], 0, "pano")}${event.coverCaption ? `<p class="pano-cap">${esc(event.coverCaption)}</p>` : ""}` : cover.length ? `<div class="mosaic n${cover.length}">${cover.map((_, i) => photoBtn("cover", cover, i)).join("")}</div>` : ""}
+    <h1>${esc(event.name)}</h1>
+    ${metaLine ? `<p class="meta">${metaLine}</p>` : ""}
+    ${event.welcome ? `<p class="lede">${esc(event.welcome)}</p>` : ""}
+  </div>
+  <section class="wrap block" aria-labelledby="h-numbers">
+    <h2 id="h-numbers">By the numbers</h2>
+    <div class="stats">${allStats.map((s) => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join("")}</div>
+  </section>
+  ${feat.length ? `<section class="wrap block" aria-labelledby="h-moments">
+    <div class="block-head"><h2 id="h-moments">Moments</h2><a href="#/photos">All photos</a></div>
+    <div class="strip">${feat.map((_, i) => photoBtn("moments", feat, i)).join("")}</div>
+  </section>` : ""}
+  ${quotes.length ? `<section class="wrap block" aria-labelledby="h-quotes">
+    <h2 id="h-quotes">Words that stuck</h2>
+    <div class="quotes">${quotes.map((s) => `<figure class="quote"><p>“${esc(s.quote.text)}”</p><footer>${esc(s.quote.by || "")}${s.quote.by ? ", in " : ""}<a href="#/events/${esc(s.id)}">${esc(s.title)}</a></footer></figure>`).join("")}</div>
+  </section>` : ""}
+  ${sessions.length ? `<section class="wrap block" aria-labelledby="h-sessions">
+    <div class="block-head"><h2 id="h-sessions">Events</h2><a href="#/events">See all ${sessions.length}</a></div>
+    <div class="sessions">${sessions.slice(0, 4).map(sessionCard).join("")}</div>
+  </section>` : ""}
+  ${event.thankYou ? `<section class="wrap block" aria-labelledby="h-thanks"><h2 id="h-thanks">Thank you</h2><p class="thanks">${esc(event.thankYou)}</p></section>` : ""}`;
+}
+
+/* ---------- Sessions ---------- */
+function sessionCard(s) {
+  const ph = photosFor(s)[0];
+  const sub = [s.day, s.time, s.room].filter(Boolean).map(esc).join(", ");
+  const who = s.speakers.map((p) => esc(p.name)).join(", ");
+  return `<a class="s-card" href="#/events/${esc(s.id)}">
+    <div class="s-thumb">${ph ? `<img ${imgSrc(ph)} alt="">` : ""}</div>
+    <div><p>${sub}</p><h3>${esc(s.title)}</h3>${who ? `<p>${who}</p>` : ""}</div>
+  </a>`;
+}
+function sessionsList() {
+  const { sessions } = S.yb;
+  if (!sessions.length) return `<div class="wrap page-head"><h1>Events</h1><p class="empty">Add events to yearbook.json, run the build again and redeploy.</p></div>`;
+  const key = (s) => s.group || s.day || "";
+  const groups = [...new Set(sessions.map(key))];
+  return `<div class="wrap page-head"><h1>Events</h1><p class="meta">${sessions.length} ${sessions.length === 1 ? "event" : "events"}. Tap one for photos and highlights.</p></div>
+    <div class="wrap">${groups.map((g) => `${g ? `<h2 class="day">${esc(g)}</h2>` : ""}<div class="sessions">${sessions.filter((s) => key(s) === g).map(sessionCard).join("")}</div>`).join("")}</div>`;
+}
+function photoSections(s, ph) {
+  const secs = sectionsOf(s).map((sec) => ({ ...sec, photos: S.photos.filter((p) => sameAlbum(sec.folder, p.folder)) })).filter((sec) => sec.photos.length);
+  if (secs.length < 2) return `<div class="grid">${ph.map((_, k) => photoBtn("s-" + s.id, ph, k, "tile")).join("")}</div>`;
+  let k = 0;
+  return secs.map((sec) => `<h3 class="ph-sec">${esc(sec.title)} <span>(${sec.photos.length})</span></h3>
+    <div class="grid">${sec.photos.map(() => photoBtn("s-" + s.id, ph, k++, "tile")).join("")}</div>`).join("");
+}
+function sessionDetail(id) {
+  const list = S.yb.sessions, i = list.findIndex((s) => s.id === id), s = list[i];
+  if (!s) return `<div class="wrap"><a class="back" href="#/events">‹ All events</a><p class="empty">This event couldn't be found.</p></div>`;
+  const ph = photosFor(s), next = list[i + 1];
+  const sub = [s.day, s.time, s.room].filter(Boolean).map(esc).join(", ");
+  return `<article class="wrap detail">
+    <a class="back" href="#/events">‹ All events</a>
+    ${sub ? `<p class="meta" style="margin-top:22px">${sub}</p>` : ""}
+    <h1>${esc(s.title)}</h1>
+    ${s.speakers.length ? `<ul class="speakers">${s.speakers.map((p) => `<li><b>${esc(p.name)}</b>${p.role ? `<span>${esc(p.role)}</span>` : ""}</li>`).join("")}</ul>` : ""}
+    ${s.summary ? `<p class="summary">${esc(s.summary)}</p>` : ""}
+    ${s.link && s.link.url ? `<p style="margin-top:20px"><a class="btn" href="${esc(safeUrl(s.link.url))}" target="_blank" rel="noopener">${esc(s.link.label || "Open link")}</a></p>` : ""}
+    ${s.quote && s.quote.text ? `<section class="block"><figure class="quote"><p>“${esc(s.quote.text)}”</p>${s.quote.by ? `<footer>${esc(s.quote.by)}</footer>` : ""}</figure></section>` : ""}
+    ${s.takeaways.length ? `<section class="block" aria-labelledby="h-take"><h2 id="h-take">Key takeaways</h2><ol class="takeaways">${s.takeaways.map((t) => `<li>${esc(t)}</li>`).join("")}</ol></section>` : ""}
+    <section class="block" aria-labelledby="h-ph"><h2 id="h-ph">Photos${ph.length ? ` (${ph.length})` : ""}</h2>
+      ${ph.length ? photoSections(s, ph) : `<p class="empty">No photos for this event yet. Put them in the photos/${esc(albumsOf(s)[0] || "…")} folder, build and redeploy.</p>`}
+    </section>
+    ${next ? `<a class="next-link" href="#/events/${esc(next.id)}"><div><span>Next event</span><b>${esc(next.title)}</b></div><span aria-hidden="true">›</span></a>` : ""}
+  </article>`;
+}
+
+/* ---------- Photos ---------- */
+function photosPage() {
+  const albums = [...new Set(S.photos.map((p) => p.album))];
+  if (!albums.includes(S.filter)) S.filter = "All";
+  const view = S.filter === "All" ? S.photos : S.photos.filter((p) => p.album === S.filter);
+  const chips = albums.length > 1 ? ["All", ...albums].map((a) => {
+    const n = a === "All" ? S.photos.length : S.photos.filter((p) => p.album === a).length;
+    return `<button class="chip" type="button" data-album="${esc(a)}" aria-pressed="${S.filter === a}">${esc(a)}<span class="count">${n}</span></button>`;
+  }).join("") : "";
+  return `<div class="wrap page-head"><h1>Photos</h1></div>
+    <div class="wrap">
+      ${chips ? `<div class="chips" role="group" aria-label="Albums">${chips}</div>` : ""}
+      ${view.length ? `<div class="grid">${view.map((_, i) => photoBtn("photos", view, i, "tile")).join("")}</div>` : `<p class="empty">No photos yet. Put them in the photos folder, build and redeploy.</p>`}
+    </div>`;
+}
+
+$("view").addEventListener("click", (e) => {
+  const chip = e.target.closest(".chip");
+  if (chip) { S.filter = chip.dataset.album; const y = scrollY; route(); scrollTo(0, y); return; }
+  const b = e.target.closest("[data-list]");
+  if (b) openViewer(lists[b.dataset.list], Number(b.dataset.i), b);
+});
+
+/* ---------- Viewer ---------- */
+if (!CONFIG.allowDownload) {
+  $("lb-dl").hidden = true;
+  document.addEventListener("contextmenu", (e) => { if (e.target.tagName === "IMG") e.preventDefault(); });
+}
+function openViewer(list, i, from) {
+  S.view = list; S.index = i; S.lastFocus = from;
+  $("lb").hidden = false; document.body.style.overflow = "hidden";
+  update(); $("lb-close").focus();
+}
+function closeViewer() {
+  stopShow(); $("lb").hidden = true; document.body.style.overflow = "";
+  if (S.lastFocus && document.contains(S.lastFocus)) S.lastFocus.focus();
+}
+function update() {
+  const p = S.view[S.index];
+  const my = ++S.seq; $("lb-img").removeAttribute("src");
+  photoUrl(p).then((u) => { if (my === S.seq) $("lb-img").src = u; }).catch(() => {});
+  $("lb-img").alt = `${p.album}, photo ${S.index + 1}`;
+  $("lb-count").textContent = `${S.index + 1} of ${S.view.length}`;
+  $("lb-caption").textContent = p.album;
+  const nx = S.view[(S.index + 1) % S.view.length];
+  if (nx) photoUrl(nx).catch(() => {});
+}
+function step(d) { S.index = (S.index + d + S.view.length) % S.view.length; update(); }
+function stopShow() { clearInterval(S.timer); S.timer = null; $("lb-play").textContent = "Slideshow"; }
+$("lb-play").onclick = () => {
+  if (S.timer) return stopShow();
+  S.timer = setInterval(() => step(1), CONFIG.slideshowSeconds * 1000);
+  $("lb-play").textContent = "Pause";
+};
+$("lb-prev").onclick = () => { stopShow(); step(-1); };
+$("lb-next").onclick = () => { stopShow(); step(1); };
+$("lb-close").onclick = closeViewer;
+$("lb-dl").onclick = async () => {
+  const p = S.view[S.index];
+  if (DEMO) { $("lb-caption").textContent = "Download saves the full photo on your live site."; return; }
+  try {
+    const blob = await (await fetch(await photoUrl(p))).blob();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = p.name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  } catch { photoUrl(p).then((u) => window.open(u, "_blank", "noopener")); }
+};
+document.addEventListener("keydown", (e) => {
+  if ($("lb").hidden) return;
+  if (e.key === "Escape") closeViewer();
+  else if (e.key === "ArrowRight") { stopShow(); step(1); }
+  else if (e.key === "ArrowLeft") { stopShow(); step(-1); }
+  else if (e.key === "Tab") {
+    const f = [...$("lb").querySelectorAll("button")].filter((b) => b.offsetParent);
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
+let touchX = null;
+$("lb-stage").addEventListener("touchstart", (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+$("lb-stage").addEventListener("touchend", (e) => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if (Math.abs(dx) > 50) { stopShow(); step(dx < 0 ? 1 : -1); }
+});
+$("lb-stage").addEventListener("click", (e) => { if (e.target.id === "lb-stage") closeViewer(); });
+
+/* ---------- Install as an app (Chrome, Edge, Android) ---------- */
+let installEvt = null;
+window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); installEvt = e; $("install").hidden = false; });
+$("install").addEventListener("click", async () => {
+  if (!installEvt) return;
+  installEvt.prompt(); await installEvt.userChoice; installEvt = null; $("install").hidden = true;
+});
+
+/* ---------- Sample content (preview only) ---------- */
+function demoContent() {
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const albums = [
+    ["01-opening-keynote", 222, 7, "stage"], ["02-resilience-panel", 200, 6, "stage"],
+    ["03-plant-tour", 32, 8, "floor"], ["04-networking-lunch", 150, 6, "room"], ["05-awards-dinner", 12, 9, "dinner"]
+  ];
+  const ratios = [[4, 3], [3, 2], [2, 3], [1, 1], [16, 9], [3, 4]];
+  const photos = [];
+  albums.forEach(([folder, hue, n, kind], a) => {
+    for (let i = 0; i < n; i++) {
+      const [rw, rh] = ratios[(i + a) % ratios.length], W = rw * 150, H = rh * 150;
+      const h = hue + (rnd() * 16 - 8);
+      let g = `<defs><linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(${h},${kind === "dinner" ? 45 : 30}%,${kind === "dinner" ? 22 : 62}%)"/><stop offset="1" stop-color="hsl(${h + 15},30%,${kind === "dinner" ? 10 : 30}%)"/></linearGradient><filter id="f"><feGaussianBlur stdDeviation="${Math.min(W, H) / 60}"/></filter></defs><rect width="100%" height="100%" fill="url(#b)"/>`;
+      if (kind === "stage") g += `<rect x="${W * (.2 + rnd() * .15)}" y="${H * .12}" width="${W * .45}" height="${H * .32}" rx="4" fill="hsl(${h},40%,88%)" opacity=".9"/>`;
+      if (kind === "floor") for (let k = 0; k < 4; k++) g += `<rect x="${W * (k * .26 + rnd() * .05)}" y="${H * (.18 + rnd() * .1)}" width="${W * .18}" height="${H * .5}" fill="hsl(${h + 180},15%,${40 + k * 5}%)" opacity=".55"/>`;
+      if (kind === "dinner" || kind === "room") for (let k = 0; k < 14; k++) g += `<circle cx="${rnd() * W}" cy="${rnd() * H * .5}" r="${Math.min(W, H) * (.02 + rnd() * .05)}" fill="hsl(${40 + rnd() * 20},90%,${kind === "dinner" ? 70 : 92}%)" opacity="${.25 + rnd() * .4}" filter="url(#f)"/>`;
+      g += `<rect y="${H * .72}" width="100%" height="${H * .28}" fill="hsl(${h},25%,${kind === "dinner" ? 8 : 24}%)" opacity=".6"/>`;
+      const people = 3 + Math.floor(rnd() * 6);
+      for (let k = 0; k < people; k++) {
+        const r = Math.min(W, H) * (.045 + rnd() * .05), x = rnd() * W, y = H * (.5 + rnd() * .32);
+        const tone = `hsl(${h + 20},20%,${kind === "dinner" ? 4 + rnd() * 8 : 12 + rnd() * 14}%)`;
+        g += `<circle cx="${x}" cy="${y}" r="${r}" fill="${tone}"/><ellipse cx="${x}" cy="${y + r * 2.7}" rx="${r * 1.9}" ry="${r * 1.9}" fill="${tone}"/>`;
+      }
+      g += `<text x="${W - 10}" y="${H - 10}" fill="rgba(255,255,255,.7)" font-family="sans-serif" font-size="${Math.max(11, Math.min(W, H) / 22)}" text-anchor="end">Sample photo</text>`;
+      photos.push({ folder, name: `photo-${i + 1}.svg`, album: prettify(folder), url: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`) });
+    }
+  });
+  const yearbook = {
+    event: {
+      name: "Conference 2026", dates: "September 15–17, 2026", location: "Sample venue",
+      welcome: "Three days, one room full of people who make things move. This is what it looked like.",
+      thankYou: "Thank you to every speaker, volunteer, driver and attendee who made this event what it was."
+    },
+    stats: [{ value: "240", label: "Attendees" }, { value: "18", label: "Speakers" }, { value: "12", label: "Plants represented" }],
+    featured: ["01-opening-keynote/photo-3.svg", "03-plant-tour/photo-2.svg", "05-awards-dinner/photo-5.svg", "04-networking-lunch/photo-1.svg", "02-resilience-panel/photo-4.svg"],
+    sessions: [
+      { id: "opening-keynote", album: "01-opening-keynote", day: "Day 1", time: "9:00 AM", room: "Main hall", title: "Opening keynote",
+        speakers: [{ name: "Sample Speaker", role: "VP Operations" }],
+        summary: "Sample summary: what the keynote covered and why it set the tone for the week.",
+        takeaways: ["Sample takeaway one", "Sample takeaway two", "Sample takeaway three"],
+        quote: { text: "The plan is only as good as the truck that shows up.", by: "Sample Speaker" },
+        link: { label: "View the slides", url: "https://example.com" } },
+      { id: "resilience-panel", album: "02-resilience-panel", day: "Day 1", time: "11:00 AM", room: "Room B", title: "Panel: Building resilient supply chains",
+        speakers: [{ name: "Panelist One", role: "Director, Logistics" }, { name: "Panelist Two", role: "Plant Manager" }],
+        summary: "Sample summary of the panel discussion.", takeaways: ["Sample takeaway", "Another sample takeaway"],
+        quote: { text: "Visibility beats inventory every time.", by: "Panelist Two" } },
+      { id: "plant-tour", album: "03-plant-tour", day: "Day 2", time: "10:00 AM", room: "Offsite", title: "Plant tour", summary: "Sample summary of the tour.", takeaways: ["Sample takeaway"] },
+      { id: "networking-lunch", album: "04-networking-lunch", day: "Day 2", time: "12:30 PM", room: "Atrium", title: "Networking lunch" },
+      { id: "awards-dinner", album: "05-awards-dinner", day: "Day 3", time: "7:00 PM", room: "Ballroom", title: "Awards dinner",
+        speakers: [{ name: "Sample Host", role: "Event chair" }], summary: "Sample summary of the evening." }
+    ]
+  };
+  return { photos, yearbook };
+}
+</script>
+</body>
+</html>
