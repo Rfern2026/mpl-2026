@@ -159,7 +159,8 @@
   .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; border: 0; background: rgba(255,255,255,.12); color: #fff; font-size: 1.6rem; line-height: 1; }
   .prev { left: 14px; } .next { right: 14px; }
   .lb-caption { padding: 10px 16px 18px; text-align: center; color: rgba(255,255,255,.72); font-size: .93rem; }
-  @media (max-width: 560px) { .lb-nav { display: none; } .lb-btn { padding: .5rem .75rem; font-size: .9rem; } .lb-actions { gap: 6px; } }
+  @media (max-width: 560px) { .lb-nav { display: none; } .lb-btn { padding: .45rem .6rem; font-size: .82rem; } .lb-actions { gap: 5px; } .lb-bar { padding: 10px 10px; } .lb-count { font-size: .8rem; } }
+  @media (max-width: 400px) { .lb-count { display: none; } .lb-bar { justify-content: flex-end; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
   /* Password screen */
   body.locked .appbar, body.locked #view, body.locked .tabbar, body.locked .banner { display: none; }
@@ -232,6 +233,7 @@
     <span class="lb-count" id="lb-count"></span>
     <div class="lb-actions">
       <button class="lb-btn" id="lb-play" type="button">Slideshow</button>
+      <button class="lb-btn" id="lb-sound" type="button" aria-pressed="true" aria-label="Music" hidden>♪ On</button>
       <button class="lb-btn" id="lb-dl" type="button">Download</button>
       <button class="lb-btn" id="lb-close" type="button">Close</button>
     </div>
@@ -259,7 +261,7 @@ const DEMO = window.YEARBOOK_DEMO === true || location.protocol === "file:";
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const safeUrl = (u) => /^https?:\/\//i.test(u || "") ? u : "#";
-const S = { photos: [], yb: null, filter: "All", view: [], index: 0, timer: null, lastFocus: null, ready: false, seq: 0 };
+const S = { photos: [], yb: null, filter: "All", view: [], index: 0, timer: null, lastFocus: null, ready: false, seq: 0, music: null };
 
 if (DEMO) { document.body.classList.remove("locked"); $("demo-banner").hidden = false; $("signout").hidden = true; if (window.YEARBOOK_DEMO_BANNER) $("demo-banner").firstElementChild.textContent = window.YEARBOOK_DEMO_BANNER; }
 
@@ -309,6 +311,7 @@ async function unlockWith(raw) {
     folder: p.folder, name: p.name, album: p.folder ? prettify(p.folder) : "General",
     file: "p/" + p.f + ".bin", type: p.t
   }));
+  if (content.music && content.music.f) S.music = { file: "data/" + content.music.f + ".bin", type: content.music.t };
   return { photos, yearbook: content.yearbook };
 }
 function photoUrl(p) {
@@ -550,7 +553,49 @@ if (!CONFIG.allowDownload) {
   $("lb-dl").hidden = true;
   document.addEventListener("contextmenu", (e) => { if (e.target.tagName === "IMG") e.preventDefault(); });
 }
+/* ---------- Slideshow music ---------- */
+const MUSIC = { audio: null, url: null, loading: null, on: true, fade: null };
+try { MUSIC.on = localStorage.getItem("highlights-sound") !== "off"; } catch {}
+function musicPrepare() {
+  if (!S.music || MUSIC.loading) return MUSIC.loading;
+  MUSIC.loading = openFile(S.music.file).then((b) => {
+    MUSIC.url = URL.createObjectURL(new Blob([b], { type: S.music.type || "audio/mpeg" }));
+    const a = new Audio(MUSIC.url); a.loop = true; a.preload = "auto"; MUSIC.audio = a;
+    return a;
+  }).catch((e) => { console.error(e); MUSIC.loading = null; });
+  return MUSIC.loading;
+}
+function fadeTo(target, ms, done) {
+  const a = MUSIC.audio; if (!a) return;
+  clearInterval(MUSIC.fade);
+  const start = a.volume, t0 = Date.now();
+  MUSIC.fade = setInterval(() => {
+    const k = Math.min(1, (Date.now() - t0) / ms);
+    a.volume = start + (target - start) * k;
+    if (k >= 1) { clearInterval(MUSIC.fade); if (done) done(); }
+  }, 40);
+}
+function musicPlay() {
+  if (!S.music || !MUSIC.on) return;
+  const go = (a) => { if (!a || !S.timer || !MUSIC.on) return; a.volume = 0; a.play().then(() => fadeTo(0.8, 1200)).catch(() => {}); };
+  if (MUSIC.audio) go(MUSIC.audio); else musicPrepare().then(go);
+}
+function musicStop() {
+  const a = MUSIC.audio; if (!a || a.paused) return;
+  fadeTo(0, 600, () => a.pause());
+}
+function soundLabel() {
+  $("lb-sound").textContent = MUSIC.on ? "♪ On" : "♪ Off";
+  $("lb-sound").setAttribute("aria-pressed", String(MUSIC.on));
+}
+$("lb-sound").onclick = () => {
+  MUSIC.on = !MUSIC.on; soundLabel();
+  try { localStorage.setItem("highlights-sound", MUSIC.on ? "on" : "off"); } catch {}
+  if (MUSIC.on && S.timer) musicPlay(); else musicStop();
+};
+
 function openViewer(list, i, from) {
+  if (S.music) { $("lb-sound").hidden = false; soundLabel(); musicPrepare(); }
   S.view = list; S.index = i; S.lastFocus = from;
   $("lb").hidden = false; document.body.style.overflow = "hidden";
   update(); $("lb-close").focus();
@@ -570,11 +615,12 @@ function update() {
   if (nx) photoUrl(nx).catch(() => {});
 }
 function step(d) { S.index = (S.index + d + S.view.length) % S.view.length; update(); }
-function stopShow() { clearInterval(S.timer); S.timer = null; $("lb-play").textContent = "Slideshow"; }
+function stopShow() { clearInterval(S.timer); S.timer = null; $("lb-play").textContent = "Slideshow"; musicStop(); }
 $("lb-play").onclick = () => {
   if (S.timer) return stopShow();
   S.timer = setInterval(() => step(1), CONFIG.slideshowSeconds * 1000);
   $("lb-play").textContent = "Pause";
+  musicPlay();
 };
 $("lb-prev").onclick = () => { stopShow(); step(-1); };
 $("lb-next").onclick = () => { stopShow(); step(1); };
